@@ -119,6 +119,8 @@ flutter:
     - assets/images/
     - assets/images/splash/
     - assets/images/splash-v31/
+    - assets/images/artworks/
+    - assets/images/icons/
     - assets/svgs/
     - configs/
 
