@@ -1,3 +1,4 @@
+import 'package:app/core/helpers/assets.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -13,7 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
       mobile: (mobileContext) => const HomeMobileWidget(),
-      tablet: (tabletContext) => const HomeTabletWidget(),
+      // tablet: (tabletContext) => const HomeTabletWidget(),
     );
   }
 }
