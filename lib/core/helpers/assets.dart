@@ -10,13 +10,13 @@ abstract class WeatherArtworkAssets {
 }
 
 abstract class IconAssets {
-  static const String clear = 'assets/images/artworks/ic_clear.png';
-  static const String clouds = 'assets/images/artworks/ic_clouds.png';
-  static const String fog = 'assets/images/artworks/ic_fog.png';
-  static const String lightClouds = 'assets/images/artworks/ic_light_clouds.png';
-  static const String lightRain = 'assets/images/artworks/ic_light_rain.png';
-  static const String rain = 'assets/images/artworks/ic_rain.png';
-  static const String snow = 'assets/images/artworks/ic_snow.png';
-  static const String storm = 'assets/images/artworks/ic_storm.png';
-  static const String logo = 'assets/images/artworks/ic_logo.png';
+  static const String clear = 'assets/images/icons/ic_clear.png';
+  static const String clouds = 'assets/images/icons/ic_clouds.png';
+  static const String fog = 'assets/images/icons/ic_fog.png';
+  static const String lightClouds = 'assets/images/icons/ic_light_clouds.png';
+  static const String lightRain = 'assets/images/icons/ic_light_rain.png';
+  static const String rain = 'assets/images/icons/ic_rain.png';
+  static const String snow = 'assets/images/icons/ic_snow.png';
+  static const String storm = 'assets/images/icons/ic_storm.png';
+  static const String logo = 'assets/images/icons/ic_logo.png';
 }
