@@ -1,3 +1,4 @@
+import 'package:app/core/palettes/palettes.dart';
 import 'package:flutter/material.dart';
 
 part 'theme_dark.dart';
