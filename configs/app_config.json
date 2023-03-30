@@ -1,0 +1,8 @@
+{
+  "is_device_preview_enabled": false,
+  "base_url": "https://my.app",
+  "api_path": "/v2",
+  "weather_api_url": "https://api.openweathermap.org",
+  "weather_api_path": "/data/2.5",
+  "weather_api_key": "ffd8d5916ab588747a5715c92772afe2"
+}
