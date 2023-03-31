@@ -17,7 +17,7 @@ class WeatherForecast with _$WeatherForecast {
     @JsonKey(name: 'speed') required double speed,
     @JsonKey(name: 'deg') required int deg,
     @JsonKey(name: 'weather') @Default(<Weather>[]) List<Weather> weather,
-    @JsonKey(name: 'temp') required List<Temperature> temperature,
+    @JsonKey(name: 'temp') required Temperature temperature,
   }) = _WeatherForecast;
 
   factory WeatherForecast.fromJson(Map<String, dynamic> json) =>
