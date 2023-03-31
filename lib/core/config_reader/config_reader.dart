@@ -6,9 +6,18 @@ import 'package:injectable/injectable.dart';
 
 abstract class ConfigReader {
   Future<void> initialize();
+
   bool get isDevicePreviewEnabled;
+
   String get baseURL;
+
   String get apiPath;
+
+  String get weatherApiBaseUrl;
+
+  String get weatherApiPath;
+
+  String get weatherApiKey;
 }
 
 @Singleton(as: ConfigReader)
@@ -42,6 +51,30 @@ class ConfigReaderImpl implements ConfigReader {
       return '';
     }
     return _config?['api_path'] as String? ?? '';
+  }
+
+  @override
+  String get weatherApiBaseUrl {
+    if (_config == null) {
+      return '';
+    }
+    return _config?['weather_api_url'] as String? ?? '';
+  }
+
+  @override
+  String get weatherApiPath {
+    if (_config == null) {
+      return '';
+    }
+    return _config?['weather_api_path'] as String? ?? '';
+  }
+
+  @override
+  String get weatherApiKey {
+    if (_config == null) {
+      return '';
+    }
+    return _config?['weather_api_key'] as String? ?? '';
   }
 
   @override
