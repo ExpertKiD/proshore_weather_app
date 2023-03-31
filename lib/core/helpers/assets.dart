@@ -11,7 +11,7 @@ abstract class WeatherArtworkAssets {
 
 abstract class IconAssets {
   static const String clear = 'assets/images/icons/ic_clear.png';
-  static const String clouds = 'assets/images/icons/ic_clouds.png';
+  static const String cloudy = 'assets/images/icons/ic_cloudy.png';
   static const String fog = 'assets/images/icons/ic_fog.png';
   static const String lightClouds = 'assets/images/icons/ic_light_clouds.png';
   static const String lightRain = 'assets/images/icons/ic_light_rain.png';
