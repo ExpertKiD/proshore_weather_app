@@ -7,8 +7,13 @@ import '../injections.dart';
 @module
 abstract class DioModule {
   @lazySingleton
-  Dio get dio => Dio(BaseOptions(
-        baseUrl:
-            '${getIt<ConfigReader>().baseURL}${getIt<ConfigReader>().apiPath}',
-      ));
+  Dio get dio => Dio(
+        BaseOptions(
+          baseUrl:
+              '${getIt<ConfigReader>().weatherApiBaseUrl}${getIt<ConfigReader>().weatherApiPath}',
+          queryParameters: {
+            'appid': getIt<ConfigReader>().weatherApiKey,
+          },
+        ),
+      );
 }
