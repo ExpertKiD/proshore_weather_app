@@ -1,11 +1,18 @@
+import 'package:app/core/utils/date_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../core/helpers/assets.dart';
 import '../../../../../../core/palettes/palettes.dart';
+import '../../../../domain/entitites/weather_forecast/weather_forecast.dart';
 
 class WeatherForecastTile extends StatelessWidget {
-  const WeatherForecastTile({Key? key}) : super(key: key);
+  final WeatherForecast forecast;
+
+  const WeatherForecastTile({
+    Key? key,
+    required this.forecast,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +35,10 @@ class WeatherForecastTile extends StatelessWidget {
                 bottom: 0,
               ),
               child: Image.asset(
-                IconAssets.cloudy,
+
+
+                IconAssets.weatherIconFrom(
+                    weatherIconId: forecast.weather.first.id),
               ),
             ),
             Expanded(
@@ -37,7 +47,8 @@ class WeatherForecastTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Tomorrow',
+                    DateTime.fromMillisecondsSinceEpoch(forecast.dt * 1000)
+                        .formattedDay(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.robotoCondensed(
@@ -47,7 +58,7 @@ class WeatherForecastTile extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Rain',
+                    forecast.weather.first.main,
                     style: GoogleFonts.robotoCondensed(
                       fontSize: 16,
                       fontWeight: FontWeight.w200,
@@ -63,13 +74,13 @@ class WeatherForecastTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '24\u00b0',
+                  '${forecast.temperature.max.toStringAsFixed(1)}\u00b0',
                   style: GoogleFonts.roboto(
                     fontSize: 24,
                   ),
                 ),
                 Text(
-                  '15\u00b0',
+                  '${forecast.temperature.min.toStringAsFixed(1)}\u00b0',
                   style: GoogleFonts.roboto(
                     fontSize: 16,
                     color: AppPalette.grey700,
