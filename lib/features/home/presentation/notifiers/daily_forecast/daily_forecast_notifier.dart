@@ -42,11 +42,12 @@ class DailyForecastNotifier extends ChangeNotifier {
 
       notifyListeners();
     }, (forecastResponse) {
-      oldForecasts = forecastResponse;
-
       _city = city;
-      state = DailyForecastState.loaded(forecastResponse: forecastResponse);
+      state = DailyForecastState.loaded(
+          forecastResponse: forecastResponse, oldForecasts: oldForecasts);
       notifyListeners();
+
+      oldForecasts = forecastResponse;
     });
   }
 
@@ -54,5 +55,5 @@ class DailyForecastNotifier extends ChangeNotifier {
     await fetchWeatherDetailsFor(city: city);
   }
 
-  /// endregion - behaviors
+/// endregion - behaviors
 }
