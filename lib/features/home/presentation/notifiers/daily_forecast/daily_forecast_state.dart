@@ -13,7 +13,8 @@ class DailyForecastState with _$DailyForecastState {
       _DailyForecastStateLoading;
 
   const factory DailyForecastState.loaded(
-      {required ForecastResponse forecastResponse}) = _DailyForecastStateLoaded;
+      {required ForecastResponse forecastResponse,
+      ForecastResponse? oldForecasts}) = _DailyForecastStateLoaded;
 
   const factory DailyForecastState.loadFailed(
       {required AppFailure failure,
