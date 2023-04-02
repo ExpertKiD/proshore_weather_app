@@ -30,18 +30,6 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    const List<Widget> mWeatherForecasts = <Widget>[
-      WeatherForecastBanner(),
-      WeatherForecastTile(),
-      WeatherForecastTile(),
-      WeatherForecastTile(),
-      WeatherForecastTile(),
-      WeatherForecastTile(),
-      WeatherForecastTile(),
-      WeatherForecastTile(),
-      WeatherForecastTile(),
-    ];
-
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -88,38 +76,41 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                 if (oldForecasts == null) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
-                  return ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => mWeatherForecasts[index],
-                    separatorBuilder: (context, index) =>
-                        const SizedBox.shrink(),
-                    itemCount: oldForecasts.forecasts.length,
-                  );
+                  return ForecastList(forecasts: oldForecasts.forecasts);
                 }
               },
               loaded: (data) {
                 final forecasts = data.forecastResponse.forecasts;
 
-                return ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => mWeatherForecasts[index],
-                  separatorBuilder: (context, index) => const SizedBox.shrink(),
-                  itemCount: forecasts.length,
-                );
+                return ForecastList(forecasts: forecasts);
               },
               loadFailed: (failed) {
                 final oldForecasts = failed.oldForecasts;
 
                 if (oldForecasts == null) {
-                  return const Center(child: Text('Failed to load'));
+                  return Center(
+                      child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('Failed to load. Please tap to reload.'),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            backgroundColor: AppPalette.sunshineBlue,
+                          ),
+                          onPressed: () {
+                            context
+                                .read<DailyForecastNotifier>()
+                                .fetchWeatherDetailsFor(
+                                    city: context
+                                        .read<DailyForecastNotifier>()
+                                        .city);
+                          },
+                          child: const Icon(Icons.refresh_rounded)),
+                    ],
+                  ));
                 } else {
-                  return ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => mWeatherForecasts[index],
-                    separatorBuilder: (context, index) =>
-                        const SizedBox.shrink(),
-                    itemCount: oldForecasts.forecasts.length,
-                  );
+                  return ForecastList(forecasts: oldForecasts.forecasts);
                 }
               },
               orElse: () => const Center(child: CircularProgressIndicator()));
@@ -130,6 +121,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
 
   void _forecastListener() {
     final forecastResponse = context.read<DailyForecastNotifier>().state;
+    final city = context.read<DailyForecastNotifier>().city;
 
     forecastResponse.maybeMap(
         loading: (data) {
@@ -139,8 +131,14 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
             ));
           }
         },
-        loaded: (_) {
+        loaded: (data) {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+          if (data.oldForecasts != null) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('$city\'s weather has been updated.'),
+            ));
+          }
         },
         loadFailed: (failed) {
           if (failed.oldForecasts != null) {
