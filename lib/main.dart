@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'core/apps/app.dart';
-
 import 'core/config_reader/config_reader.dart';
 import 'core/injections/injections.dart';
 import 'core/routes/app_router.dart';
 
-
 final appRouter = AppRouter();
 
 void main() async {
-  _initialiseApp();
+  await _initialiseApp();
 
   runApp(const MyApp());
 }
