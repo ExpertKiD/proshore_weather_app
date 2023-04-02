@@ -9,12 +9,13 @@ part 'daily_forecast_state.freezed.dart';
 class DailyForecastState with _$DailyForecastState {
   const factory DailyForecastState.initial() = _DailyForecastStateInitial;
 
-  const factory DailyForecastState.loading(
-      {@Default(true) bool showIndicator}) = _DailyForecastStateLoading;
+  const factory DailyForecastState.loading({ForecastResponse? oldForecasts}) =
+      _DailyForecastStateLoading;
 
   const factory DailyForecastState.loaded(
       {required ForecastResponse forecastResponse}) = _DailyForecastStateLoaded;
 
-  const factory DailyForecastState.loadFailed({required AppFailure failure}) =
-      _DailyForecastStateLoadFailed;
+  const factory DailyForecastState.loadFailed(
+      {required AppFailure failure,
+      ForecastResponse? oldForecasts}) = _DailyForecastStateLoadFailed;
 }
