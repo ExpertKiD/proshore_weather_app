@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/entitites/forecast_response/forecast_response.dart';
 import '../../../domain/usecases/get_daily_weather_forecasts.dart';
 import 'daily_forecast_state.dart';
 
@@ -11,6 +12,9 @@ class DailyForecastNotifier extends ChangeNotifier {
   String get city => _city ?? kDefaultCity;
 
   DailyForecastState state;
+
+  ForecastResponse? oldForecasts;
+
   GetDailyWeatherForecastsUseCase getDailyWeatherForecastsUseCase;
 
   DailyForecastNotifier({
@@ -21,7 +25,7 @@ class DailyForecastNotifier extends ChangeNotifier {
   /// region - behaviors
   Future<void> fetchWeatherDetailsFor({String city = 'Kathmandu'}) async {
     // Set to loading state
-    state = const DailyForecastState.loading();
+    state = DailyForecastState.loading(oldForecasts: oldForecasts);
     notifyListeners();
 
     // Start fetching data from api
@@ -33,11 +37,14 @@ class DailyForecastNotifier extends ChangeNotifier {
 
     // Update state accordingly using result
     result.fold((failure) {
-      state = DailyForecastState.loadFailed(failure: failure);
+      state = DailyForecastState.loadFailed(
+          failure: failure, oldForecasts: oldForecasts);
 
-      _city = city;
       notifyListeners();
     }, (forecastResponse) {
+      oldForecasts = forecastResponse;
+
+      _city = city;
       state = DailyForecastState.loaded(forecastResponse: forecastResponse);
       notifyListeners();
     });
@@ -47,5 +54,5 @@ class DailyForecastNotifier extends ChangeNotifier {
     await fetchWeatherDetailsFor(city: city);
   }
 
-/// endregion - behaviors
+  /// endregion - behaviors
 }
