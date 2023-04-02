@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
       create: (providerContext) => DailyForecastNotifier(
           getDailyWeatherForecastsUseCase:
               getIt<GetDailyWeatherForecastsUseCase>())
-        ..fetchWeatherDetailsFor(city: 'Kasdad'),
+        ..fetchWeatherDetailsFor(),
       child: ScreenTypeLayout.builder(
         mobile: (mobileContext) => const HomeMobileWidget(),
         // tablet: (tabletContext) => const HomeTabletWidget(),
